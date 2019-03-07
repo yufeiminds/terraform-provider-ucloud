@@ -1,14 +1,6 @@
 # Specify the provider and access details
 provider "ucloud" {
-  region = "${var.region}"
-}
-
-data "ucloud_zones" "default" {}
-
-data "ucloud_images" "default" {
-  availability_zone = "${data.ucloud_zones.default.zones.0.id}"
-  name_regex        = "^CentOS 7.[1-2] 64"
-  image_type        = "base"
+  region = "cn-bj2"
 }
 
 resource "ucloud_lb" "default" {
@@ -39,12 +31,11 @@ resource "ucloud_lb_rule" "default" {
 resource "ucloud_instance" "web" {
   name              = "tf-example-two_tier-${format(var.count_format, count.index+1)}"
   tag               = "tf-example"
-  availability_zone = "${data.ucloud_zones.default.zones.0.id}"
-  instance_type     = "n-standard-1"
+  availability_zone = "cn-bj2-05"
+  instance_type     = "n-highcpu-1"
 
   # use cloud disk as data disk
-  data_disk_size = 50
-  image_id       = "${data.ucloud_images.default.images.0.id}"
+  image_id       = "image-kg0w4u"
   root_password  = "${var.instance_password}"
 
   count = "${var.count}"

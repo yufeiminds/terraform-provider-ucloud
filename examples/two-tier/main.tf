@@ -21,13 +21,6 @@ resource "ucloud_lb_attachment" "default" {
   count            = "${var.count}"
 }
 
-resource "ucloud_lb_rule" "default" {
-  load_balancer_id = "${ucloud_lb.default.id}"
-  listener_id      = "${ucloud_lb_listener.default.id}"
-  backend_ids      = ["${ucloud_lb_attachment.default.*.id}"]
-  domain           = "www.ucloud.cn"
-}
-
 resource "ucloud_instance" "web" {
   name              = "tf-example-two_tier-${format(var.count_format, count.index+1)}"
   tag               = "tf-example"

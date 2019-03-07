@@ -35,7 +35,7 @@ resource "ucloud_instance" "web" {
   instance_type     = "n-highcpu-1"
 
   # use cloud disk as data disk
-  image_id       = "image-kg0w4u"
+  image_id       = "uimage-kg0w4u"
   root_password  = "${var.instance_password}"
 
   count = "${var.count}"
